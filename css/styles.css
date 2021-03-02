@@ -1,45 +1,159 @@
 @import "./reset.css";
-@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap");
-
+/* ==============
+   General
+============== */
+:root {
+  --ff-time: "Roboto Mono", monospace;
+  --ff-general: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
 html {
   font-size: 62.5%;
 }
 body {
   font-size: 1.8rem;
-  background-color: #ddd;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  padding: 1rem;
+  min-height: 100vh;
+  background-color: #0cbaba;
+  background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
+
+  background-repeat: no-repeat;
+  background-size: 200%;
+  background-position: 20% 20%;
 }
 
+/* =============
+   Utilities
+============= */
 .container {
   width: 90%;
-  max-width: 40em;
+  max-width: 1600px;
   margin: 1em auto;
 }
 
+/* =============
+   Typography
+============= */
 .holiday-heading {
   text-align: center;
-  font-size: 5rem;
-  color: rgb(241, 22, 22);
+  font-weight: 400;
+  font-size: clamp(3.5rem, 5vw, 8rem);
+  display: block;
+  color: rgba(255, 255, 255, 0.842);
+}
+.holiday-name,
+.time {
+  color: #fbca4e;
 }
 
-.holiday-heading span {
+.holiday-name {
   font-size: 1.5em;
-  color: black;
 }
 
-.holiday-time-left {
+.holiday-time {
   text-align: center;
 }
 
-.holiday-time-left p {
-  font-size: 2rem;
-}
-
-.holiday-time-left span {
+.time {
   font-weight: 500;
-  font-family: "Roboto Mono", monospace;
-  font-size: 7.5rem;
+  font-family: var(--ff-time);
+  font-size: clamp(3rem, 3rem + 10vw, 55rem);
   display: inline-block;
   text-align: right;
+  background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+  background-repeat: no-repeat;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.time.day {
+  font-size: clamp(6rem, 6rem + 15vw, 55rem);
+  background-color: #fbab7e;
+  background-image: linear-gradient(62deg, #ce682e 0%, #fff23c 100%);
+}
+
+/* =============
+   Layouts
+============= */
+.grid {
+  display: grid;
+  grid-template-rows: 170px 1fr auto;
+  gap: 2rem;
+}
+
+.header {
+  align-self: end;
+}
+
+.holiday-name {
+  display: block;
+}
+
+@media (min-width: 500px) {
+  .holiday-name {
+    display: initial;
+    margin: 0 1rem;
+  }
+}
+
+.holiday-time {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas:
+    "D D D"
+    "H M S";
+}
+
+.grid-d {
+  grid-area: D;
+}
+.grid-h {
+  grid-area: H;
+}
+.grid-m {
+  grid-area: M;
+}
+.grid-s {
+  grid-area: S;
+}
+
+.time-block {
+  position: relative;
+  align-self: end;
+  background-clip: text;
+  z-index: 0;
+}
+
+.time {
+  position: relative;
+}
+
+.day::after,
+.hour::after,
+.minute::after,
+.second::after {
+  position: absolute;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
+  width: min-content;
+  bottom: 0%;
+  right: -1em;
+  font-size: clamp(1rem, 1rem + 5vw, 10rem);
+  font-weight: 600;
+  color: rgba(255, 210, 210, 0.15);
+  z-index: -1;
+}
+.day::after {
+  content: "天";
+  font-size: clamp(2rem, 1rem + 5vw, 10rem);
+}
+.hour::after {
+  content: "小時";
+}
+.minute::after {
+  content: "分鐘";
+}
+.second::after {
+  content: "秒";
 }

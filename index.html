@@ -7,28 +7,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
-  <title>國定假日倒數計時器</title>
+  <title>連假倒數中</title>
 
 
   <link rel="stylesheet" href="css/styles.css" />
   <script src="js/main.js" defer></script>
 </head>
 
-<body>
+<body class="grid">
   <!-- <input id="date" type="date"> -->
-  <main class="container">
-    <header>
-      <h1 id="holiday-heading" class="holiday-heading">距離<span>下個</span>連假還有</h1>
-    </header>
-
-    <div class="holiday-time-left ">
-      <p><span id="days-left" class="">00</span>天</p>
-      <p><span id="hours-left" class="">00</span>時</p>
-      <p><span id="minutes-left" class="">00</span>分</p>
-      <p><span id="seconds-left" class="">00</span>秒</p>
+  <header class="header">
+    <h1 id="holiday-heading" class="holiday-heading" data-heading="2222">距離<span class="holiday-name">下個</span>連假還有</h1>
+  </header>
+  <main class="main">
+    <div class="holiday-time">
+      <div class="time-block grid-d">
+        <span class="time day">0</span>
+      </div>
+      <div class="time-block grid-h">
+        <span class="time hour">00</span>
+      </div>
+      <div class="time-block grid-m">
+        <span class="time minute">00</span>
+      </div>
+      <div class="time-block grid-s">
+        <span class="time second">00</span>
+      </div>
     </div>
   </main>
-
+  <footer></footer>
 
 
 </body>

@@ -23,7 +23,7 @@ function renderCounter() {
   holiday = findClosestHoliday(holiday, currentTime)
   const holidayStart = new Date(holiday.dateStart)
   const holidayEnd = addDays(holidayStart, holiday.duration)
-
+  console.log(holidayStart)
   const isNowHoliday = currentTime > holidayStart && currentTime < holidayEnd
   const date = isNowHoliday ? holidayEnd : holidayStart
 

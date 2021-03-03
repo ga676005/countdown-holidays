@@ -2,6 +2,10 @@
 /* ==============
    General
 ============== */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 :root {
   --ff-time: "Roboto Mono", monospace;
   --ff-general: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
@@ -12,11 +16,9 @@ html {
 }
 body {
   font-size: 1.8rem;
-  padding: 1rem;
   min-height: 100vh;
   background-color: #0cbaba;
   background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
-
   background-repeat: no-repeat;
   background-size: 200%;
   background-position: 20% 20%;
@@ -71,6 +73,7 @@ body {
   font-size: clamp(6rem, 6rem + 15vw, 55rem);
   background-color: #fbab7e;
   background-image: linear-gradient(62deg, #ce682e 0%, #fff23c 100%);
+  -webkit-font-smoothing: subpixel-antialiased;
 }
 
 /* =============
@@ -111,12 +114,14 @@ body {
 }
 .grid-h {
   grid-area: H;
+  justify-self: end;
 }
 .grid-m {
   grid-area: M;
 }
 .grid-s {
   grid-area: S;
+  justify-self: start;
 }
 
 .time-block {
@@ -139,7 +144,8 @@ body {
   width: min-content;
   bottom: 0%;
   right: -1em;
-  font-size: clamp(1rem, 1rem + 5vw, 10rem);
+  /* font-size: clamp(1rem, 1rem + 5vw, 10rem); */
+  font-size: 2rem;
   font-weight: 600;
   color: rgba(255, 210, 210, 0.15);
   z-index: -1;

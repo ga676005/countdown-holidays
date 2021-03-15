@@ -23,7 +23,6 @@ function renderCounter() {
   holiday = findClosestHoliday(holiday, currentTime)
   const holidayStart = new Date(holiday.dateStart)
   const holidayEnd = addDays(holidayStart, holiday.duration)
-  console.log(holidayStart)
   const isNowHoliday = currentTime > holidayStart && currentTime < holidayEnd
   const date = isNowHoliday ? holidayEnd : holidayStart
 
@@ -37,14 +36,10 @@ function findClosestHoliday(holiday, currentTime) {
     const hasClosestHolidayEnd = holiday && currentTime > holidayEnd
 
     //連假還沒過不用再往下找
-    if (!hasClosestHolidayEnd) {
-      // console.log(hasClosestHolidayEnd)
-      return holiday
-    }
+    if (!hasClosestHolidayEnd) return holiday
   }
 
   // 找下一個連假
-  console.log("find next holiday")
   const closestHoliday = holidays.reduce((currentClosestHoliday, holiday) => {
     const {
       hasCurrentHolidayPassed,
@@ -56,6 +51,7 @@ function findClosestHoliday(holiday, currentTime) {
     if (hasCurrentHolidayPassed) {
       currentClosestHoliday = holiday
     } else {
+
       //目前連假的日期有效，檢查有沒有下一個日期更接近現在的連假
       if (!entryHolidayHasPassed && entryDateIsCloser) {
         currentClosestHoliday = holiday
@@ -96,12 +92,3 @@ function updateText(day, hour, minute, second, isNowHoliday) {
     : `距離<span class="holiday-name">${holiday.name}</span>連假`
   holidayHeading.dataset.heading = holiday.name
 }
-// setTimeout(() => {
-//   clearInterval(holidaysCountdownTimer)
-// }, 3500)
-
-document.addEventListener("change", (e) => {
-  if (e.target.matches(".time.second")) {
-    console.log("second change")
-  }
-})

@@ -1,12 +1,6 @@
 {
   "holidays": [
     {
-      "name": "清明節",
-      "dateStart": "2021/4/2",
-      "dateEnd": "2021/4/5",
-      "duration": 4
-    },
-    {
       "name": "228",
       "dateStart": "2021/2/27",
       "dateEnd": "2021/3/1",
@@ -17,6 +11,12 @@
       "dateStart": "2021/4/30",
       "dateEnd": "2021/5/2",
       "duration": 3
+    },
+    {
+      "name": "清明節",
+      "dateStart": "2021/4/2",
+      "dateEnd": "2021/4/5",
+      "duration": 4
     },
     {
       "name": "端午節",

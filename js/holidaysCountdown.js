@@ -48,15 +48,10 @@ function findClosestHoliday(holiday, currentTime) {
     } = filterHoliday(currentClosestHoliday, holiday, currentTime)
 
     // 如果目前連假已過直接換下一個連假
-    if (hasCurrentHolidayPassed) {
-      currentClosestHoliday = holiday
-    } else {
+    if (hasCurrentHolidayPassed) return holiday
 
-      //目前連假的日期有效，檢查有沒有下一個日期更接近現在的連假
-      if (!entryHolidayHasPassed && entryDateIsCloser) {
-        currentClosestHoliday = holiday
-      }
-    }
+    //目前連假的日期有效，檢查有沒有下一個日期更接近現在的連假
+    if (!entryHolidayHasPassed && entryDateIsCloser) return holiday
 
     return currentClosestHoliday
   }, holidays[0])

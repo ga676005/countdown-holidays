@@ -3,10 +3,8 @@ import formatTimer from "./util/formatTimer"
 import { addDays } from "date-fns"
 let holiday, holidaysCountdownTimer
 const holidays = json.holidays
-const daysLeft = document.querySelector(".day")
-const hoursLeft = document.querySelector(".hour")
-const minutesLeft = document.querySelector(".minute")
-const secondsLeft = document.querySelector(".second")
+const timeElements = document.querySelectorAll('.time')
+const monthElement = document.querySelector('.month')
 const holidayHeading = document.querySelector("#holiday-heading")
 
 export default function setupHolidaysCountdown() {
@@ -24,16 +22,15 @@ function renderCounter() {
   const holidayStart = new Date(holiday.dateStart)
   const holidayEnd = addDays(holidayStart, holiday.duration)
   const isNowHoliday = currentTime > holidayStart && currentTime < holidayEnd
-  const date = isNowHoliday ? holidayEnd : holidayStart
+  const targetDate = isNowHoliday ? holidayEnd : holidayStart
 
-  const { day, hour, minute, second } = formatTimer(currentTime, date)
-  updateText(day, hour, minute, second, isNowHoliday)
+  updateText(currentTime, targetDate, isNowHoliday)
 }
 
 function findClosestHoliday(holiday, currentTime) {
   if (holiday) {
     const holidayEnd = addDays(new Date(holiday.dateStart), holiday.duration)
-    const hasClosestHolidayEnd = holiday && currentTime > holidayEnd
+    const hasClosestHolidayEnd = currentTime > holidayEnd
 
     //連假還沒過不用再往下找
     if (!hasClosestHolidayEnd) return holiday
@@ -69,19 +66,26 @@ function filterHoliday(currentHoliday, targetHoliday, currentTime) {
   const entryDateEnd = addDays(entryDateStart, targetHoliday.duration)
 
   const hasCurrentHolidayPassed =
-    currentTime > currentHolidayDateStart && currentTime > currentHolidayDateEnd
+    currentTime > currentHolidayDateStart
+    && currentTime > currentHolidayDateEnd
+
   const entryHolidayHasPassed =
-    currentTime > entryDateStart && currentTime > entryDateEnd
+    currentTime > entryDateStart
+    && currentTime > entryDateEnd
+
   const entryDateIsCloser = entryDateStart < currentHolidayDateStart
 
   return { hasCurrentHolidayPassed, entryHolidayHasPassed, entryDateIsCloser }
 }
 
-function updateText(day, hour, minute, second, isNowHoliday) {
-  daysLeft.innerHTML = `${day}`
-  hoursLeft.textContent = `${hour}`
-  minutesLeft.textContent = `${minute}`
-  secondsLeft.textContent = `${second}`
+function updateText(currentTime, targetDate, isNowHoliday) {
+  const timeValues = formatTimer(currentTime, targetDate)
+
+  timeElements.forEach(e => e.textContent = timeValues[e.dataset.unit])
+  if (timeValues.month <= 0) {
+    monthElement.style.display = "none"
+  }
+
   holidayHeading.innerHTML = isNowHoliday
     ? `<span class="holiday-name">${holiday.name}</span>假期還有`
     : `距離<span class="holiday-name">${holiday.name}</span>連假`

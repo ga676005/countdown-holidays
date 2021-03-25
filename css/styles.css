@@ -106,22 +106,27 @@ body {
   gap: 2rem;
   grid-template-columns: repeat(3, 1fr);
   grid-template-areas:
-    'D D D'
-    'H M S';
+    'day    day    day'
+    'hour  minute second';
 }
 
-.grid-d {
-  grid-area: D;
-}
-.grid-h {
-  grid-area: H;
+.grid-month {
+  grid-area: month;
   justify-self: end;
 }
-.grid-m {
-  grid-area: M;
+
+.grid-day {
+  grid-area: day;
 }
-.grid-s {
-  grid-area: S;
+.grid-hour {
+  grid-area: hour;
+  justify-self: end;
+}
+.grid-minute {
+  grid-area: minute;
+}
+.grid-second {
+  grid-area: second;
   justify-self: start;
 }
 
@@ -136,7 +141,7 @@ body {
   position: relative;
 }
 
-:is(.day, .hour, .minute, .second)::after {
+:is(.month, .day, .hour, .minute, .second)::after {
   position: absolute;
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15);
   width: min-content;
@@ -148,6 +153,9 @@ body {
   z-index: -1;
 }
 
+.month::after {
+  content: '個月';
+}
 .day::after {
   content: '天';
   font-size: clamp(2rem, 1rem + 5vw, 10rem);

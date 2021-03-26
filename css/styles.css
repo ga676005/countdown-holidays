@@ -16,13 +16,14 @@ html {
 }
 body {
   font-size: 1.8rem;
-  min-height: 100vh;
+  height: 100vh;
   background-color: #0cbaba;
   background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
   background-repeat: no-repeat;
   background-size: 200%;
   background-position: 20% 20%;
   text-rendering: optimizeSpeed;
+  overflow: hidden;
 }
 
 /* =============
@@ -77,12 +78,16 @@ body {
   -webkit-font-smoothing: subpixel-antialiased;
 }
 
+.time.month {
+  font-size: clamp(15rem, 15rem + 30vw, 80rem);
+  line-height: 1;
+}
 /* =============
    Layouts
 ============= */
 .grid {
   display: grid;
-  grid-template-rows: 170px 1fr auto;
+  grid-template-rows: 170px 1fr;
   gap: 2rem;
 }
 
@@ -110,11 +115,6 @@ body {
     'hour  minute second';
 }
 
-.grid-month {
-  grid-area: month;
-  justify-self: end;
-}
-
 .grid-day {
   grid-area: day;
 }
@@ -130,11 +130,12 @@ body {
   justify-self: start;
 }
 
-.time-block {
-  position: relative;
-  align-self: end;
-  background-clip: text;
-  z-index: 0;
+.grid-month {
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
+  justify-self: center;
+  align-self: center;
+  display: none;
 }
 
 .time {
@@ -154,8 +155,19 @@ body {
 }
 
 .month::after {
-  content: '個月';
+  content: '個月...';
+  width: max-content;
+  right: -3.5em;
+  bottom: 0.7em;
+  z-index: 1;
+  font-size: clamp(3rem, 2rem + 5vw, 10rem);
+  background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+  background-repeat: no-repeat;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
+
 .day::after {
   content: '天';
   font-size: clamp(2rem, 1rem + 5vw, 10rem);
@@ -168,4 +180,18 @@ body {
 }
 .second::after {
   content: '秒';
+}
+
+.show-month :is(.day, .hour, .minute, .second) {
+  filter: blur(3px) grayscale(50%);
+  z-index: -1;
+}
+
+.show-month {
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.show-month .grid-month {
+  display: unset;
 }

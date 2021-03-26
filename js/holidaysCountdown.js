@@ -4,7 +4,7 @@ import { addDays } from "date-fns"
 let holiday, holidaysCountdownTimer
 const holidays = json.holidays
 const timeElements = document.querySelectorAll('.time')
-const monthElement = document.querySelector('.month')
+const timeElementsContainer = document.querySelector('.main')
 const holidayHeading = document.querySelector("#holiday-heading")
 
 export default function setupHolidaysCountdown() {
@@ -82,9 +82,7 @@ function updateText(currentTime, targetDate, isNowHoliday) {
   const timeValues = formatTimer(currentTime, targetDate)
 
   timeElements.forEach(e => e.textContent = timeValues[e.dataset.unit])
-  if (timeValues.month <= 0) {
-    monthElement.style.display = "none"
-  }
+  timeElementsContainer.classList.toggle('show-month', timeValues.month > 0)
 
   holidayHeading.innerHTML = isNowHoliday
     ? `<span class="holiday-name">${holiday.name}</span>假期還有`
